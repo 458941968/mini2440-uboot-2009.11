@@ -65,7 +65,7 @@ void param_menu_usage(void)
     printf("[v] View the parameters\r\n");
     printf("[s] Set parameter \r\n");
     printf("[n] Set bootargs to mount nfs\n");
-    printf("[f] Set bootargs to mount mtdblock3\n");
+    printf("[f] Set bootargs to mount mtdblock4\n");
     printf("[d] Delete parameter \r\n");
     printf("[w] Write the parameters to flash memeory \r\n");
     printf("[q] Quit \r\n");
@@ -117,7 +117,7 @@ void param_menu_shell(void)
             
 			case 'n':
             {
-                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/nfs rw nfsroot=192.168.1.10:/home/rootfs ip=192.168.1.19:192.168.1.10::255.255.255.0 console=ttySAC0,115200 init=/linuxrc mem=64M");
+                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/nfs rw nfsroot=192.168.14.14:/home/topeet/work/mini2440/rootfs ip=192.168.14.19:192.168.14.14::255.255.255.0 console=ttySAC0,115200 init=/linuxrc mem=64M");
 
                 run_command(cmd_buf, 0);
                 break;
@@ -125,7 +125,7 @@ void param_menu_shell(void)
 
 			case 'f':
             {
-                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/mtdblock4 init=/linuxrc console=ttySAC0");
+                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/mtdblock4 rootfstype=yaffs2 init=/linuxrc console=ttySAC0,115200 mem=64M");
 
                 run_command(cmd_buf, 0);
                 break;
@@ -249,14 +249,14 @@ void menu_shell(void)
 #ifdef CONFIG_SYS_DIRECT_NAND_TFTP
             case 'y':
             {
-                strcpy(cmd_buf, "nand erase 0x600000 0x25000000; tftp 0x600000 rootfs.yaffs2;");
+                strcpy(cmd_buf, "nand erase 0x600000 0xFA00000; tftp 0x600000 rootfs.yaffs2;");
                 run_command(cmd_buf, 0);
                 break;
             }
 #else 
             case 'y':
             {
-                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 $(filesize); nand write.yaffs2 0x30000000 0x600000 $(filesize)");
+                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 0xFA00000; nand write.yaffs2 0x30000000 0x600000 $(filesize)");
                 run_command(cmd_buf, 0);
                 break;
             }

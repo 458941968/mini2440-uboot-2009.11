@@ -125,7 +125,7 @@ void param_menu_shell(void)
 
 			case 'f':
             {
-                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/mtdblock4 rootfstype=yaffs2 init=/linuxrc console=ttySAC0,115200 mem=64M");
+                sprintf(cmd_buf, "setenv bootargs noinitrd root=/dev/mtdblock4 rootfstype=cramfs init=/linuxrc console=ttySAC0,115200 mem=64M");
 
                 run_command(cmd_buf, 0);
                 break;
@@ -162,20 +162,21 @@ void param_menu_shell(void)
 
 void main_menu_usage(void)
 {
-    printf("\n############ u-bootÒÆÖ²°æ±¾ #############\n");
-    printf("ĞÕÃû£º»ÆÒøÇà\n");
-    printf("×¨Òµ£ºÎ¢µç×ÓÑ§\n");
-    printf("Ñ§ºÅ£º110800836\n\n");
+    printf("\n############ u-bootç§»æ¤ç‰ˆæœ¬ #############\n");
+    printf("å§“åï¼šé»„é“¶é’\n");
+    printf("ä¸“ä¸šï¼šå¾®ç”µå­å­¦\n");
+    printf("å­¦å·ï¼š110800836\n\n");
 
-//==³ÉÆ·¹¦ÄÜ
+//==æˆå“åŠŸèƒ½
 	printf("[o] Download Boot Loader \"u-boot.bin\" to Nor Flash\n");
     printf("[u] Download Boot Loader \"u-boot.bin\" to Nand Flash\n");
     printf("[l] Download Logo \"logo.bmp\" to Nand Flash\n");
     printf("[k] Download Linux kernel \"uImage\" to Nand Flash\n");
     printf("[y] Download Rootfs \"rootfs.yaffs2\" to Nand Flash\n");
+    printf("[c] Download Rootfs \"rootfs.cramfs\" to Nand Flash\n");
+	printf("[a] Download App \"app.yaffs2\" to Nand Flash\n");
 
-
-//==¿ª·¢²âÊÔ¹¦ÄÜ
+//==å¼€å‘æµ‹è¯•åŠŸèƒ½
 	printf("[d] Download \"test.bin\"to SDRAM & Run\r\n");
 	printf("[b] Download \"u-boot.bin\"to SDRAM & Run\r\n");
     printf("[t] Download \"uImage\" to SDRAM & Boot\r\n");
@@ -249,18 +250,30 @@ void menu_shell(void)
 #ifdef CONFIG_SYS_DIRECT_NAND_TFTP
             case 'y':
             {
-                strcpy(cmd_buf, "nand erase 0x600000 0xFA00000; tftp 0x600000 rootfs.yaffs2;");
+                strcpy(cmd_buf, "nand erase 0x600000 0x3200000; tftp 0x600000 rootfs.yaffs2;");
                 run_command(cmd_buf, 0);
                 break;
             }
 #else 
             case 'y':
             {
-                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 0xFA00000; nand write.yaffs2 0x30000000 0x600000 $(filesize)");
+                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 0x3200000; nand write.yaffs2 0x30000000 0x600000 $(filesize)");
                 run_command(cmd_buf, 0);
                 break;
             }
 #endif
+            case 'c':
+            {
+                strcpy(cmd_buf, "tftp 0x30000000 rootfs.cramfs; nand erase 0x600000 0x3200000; nand write 0x30000000 0x600000 $(filesize)");
+                run_command(cmd_buf, 0);
+                break;
+            }
+            case 'a':
+            {
+                strcpy(cmd_buf, "tftp 0x30000000 app.yaffs2; nand erase 0x3800000 0xC800000; nand write.yaffs2 0x30000000 0x3800000 $(filesize)");
+                run_command(cmd_buf, 0);
+                break;
+            }
 			case 'd':
 			{
                 strcpy(cmd_buf, "tftp 0x30000000 test.bin;go 0x30000000");

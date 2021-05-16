@@ -30,33 +30,33 @@
 #define __CONFIG_H
 
 
-/*---------------------------------»ã±à¼¶ÅäÖÃ---------------------------------*/
+/*---------------------------------æ±‡ç¼–çº§é…ç½®---------------------------------*/
 #undef  CONFIG_SKIP_LOWLEVEL_INIT	    /* undef for developing */
-#define CONFIG_DEBUG_LL	                1   //==»ã±àµ÷ÊÔ
-#define CONFIG_S3C2440_NAND_SKIP_BAD    1   //==Ìø¹ı»µ¿é
-#define	CONFIG_HYQ2440_LED	            1	//==»ã±àµãµÆ·¨           
+#define CONFIG_DEBUG_LL	                1   //==æ±‡ç¼–è°ƒè¯•
+#define CONFIG_S3C2440_NAND_SKIP_BAD    1   //==è·³è¿‡åå—
+#define	CONFIG_HYQ2440_LED	            1	//==æ±‡ç¼–ç‚¹ç¯æ³•           
 
 
-/*----------------------------------ÌåÏµÅäÖÃ----------------------------------*/
+/*----------------------------------ä½“ç³»é…ç½®----------------------------------*/
 #define CONFIG_ARM920T		1	/* This is an ARM920T Core	*/
 #define	CONFIG_S3C2440		1	/* in a SAMSUNG S3C2440 SoC  */
 #define	CONFIG_HYQ2440		1	/* in a HYQ2440 Board  */
 
 
-/*--------------------------------Ê±ÖÓÅäÖÃ-------------------------------------*/
+/*--------------------------------æ—¶é’Ÿé…ç½®-------------------------------------*/
 #define CONFIG_SYS_CLK_FREQ	12000000/* the SMDK2410 has 12MHz input clock */
 
 
-/*---------------------------------MMUÅäÖÃ--------------------------------------*/
+/*---------------------------------MMUé…ç½®--------------------------------------*/
 //#define USE_920T_MMU		1
 
 
-/*---------------------------------ÖĞ¶ÏÅäÖÃ------------------------------------ */
+/*---------------------------------ä¸­æ–­é…ç½®------------------------------------ */
 //#undef CONFIG_USE_IRQ		/* we don't need IRQ/FIQ stuff */
 #define CONFIG_USE_IRQ	    1
 
 
-/*---------------------------------ÃüÁîÅäÖÃ------------------------------------- */
+/*---------------------------------å‘½ä»¤é…ç½®------------------------------------- */
 #include <config_cmd_default.h>
 #define CONFIG_CMD_CACHE
 #define CONFIG_CMD_DATE
@@ -65,16 +65,16 @@
 #define CONFIG_CMD_MENU     //==hyq
 
 
-/*---------------------------------»·¾³²ÎÊıÅäÖÃ--------------------------------*/
+/*---------------------------------ç¯å¢ƒå‚æ•°é…ç½®--------------------------------*/
 //#define CONFIG_BOOTARGS	"noinitrd root=/dev/nfs rw nfsroot=192.168.1.10:/home/rootfs ip=192.168.1.19:192.168.1.10::255.255.255.0 console=ttySAC0,115200 init=/linuxrc mem=64M"
 #define CONFIG_BOOTARGS 	"noinitrd root=/dev/mtdblock4 init=/linuxrc console=ttySAC0"
 #define CONFIG_BOOTCOMMAND	"nand read 0x30007fc0 0x100000 0x500000\;bootm 0x30007fc0" 
 #define CONFIG_BOOTDELAY	2
 #define CONFIG_BAUDRATE		115200
 #define CONFIG_ETHADDR	    08:00:3e:26:0a:5b 
-#define CONFIG_IPADDR		192.168.1.19
-#define CONFIG_SERVERIP		192.168.1.10
-#define CONFIG_GATEWAYIP	192.168.1.1
+#define CONFIG_IPADDR		192.168.0.19
+#define CONFIG_SERVERIP		192.168.0.10
+#define CONFIG_GATEWAYIP	192.168.0.1
 #define CONFIG_NETMASK      255.255.255.0
 //#define CONFIG_BOOTFILE	"uImage"
 //#define CONFIG_LOADADD    192.168.1.10
@@ -93,18 +93,18 @@
 #define CONFIG_ENV_OFFSET		CONFIG_ENV_ADDR
 
 
-/*---------------------------------ÄÚºËÃüÁîĞĞÅäÖÃ--------------------------------*/
+/*---------------------------------å†…æ ¸å‘½ä»¤è¡Œé…ç½®--------------------------------*/
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_INITRD_TAG
 #define CONFIG_CMDLINE_TAG
 
 
-/*-----------------------------------¶ÑÅäÖÃ--------------------------------------*/
+/*-----------------------------------å †é…ç½®--------------------------------------*/
 #define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + 128*1024)
 #define CONFIG_SYS_GBL_DATA_SIZE	128
 
 
-/*---------------------------------Õ»ÅäÖÃ-------------------------------------- */
+/*---------------------------------æ ˆé…ç½®-------------------------------------- */
 #define CONFIG_STACKSIZE	    (128*1024)	/* regular stack */
 #ifdef CONFIG_USE_IRQ
 #define CONFIG_STACKSIZE_IRQ	(4*1024)	/* IRQ stack */
@@ -112,18 +112,18 @@
 #endif
 
 
-/*---------------------------------ÄÚ´æÅäÖÃ--------------------------------------*/
+/*---------------------------------å†…å­˜é…ç½®--------------------------------------*/
 #define CONFIG_NR_DRAM_BANKS	 1	   /* we have 1 bank of DRAM */
 #define PHYS_SDRAM_1		    0x30000000 /* SDRAM Bank #1 */
 #define PHYS_SDRAM_1_SIZE	    0x04000000 /* 64 MB */
 
 
-/*---------------------------------´®¿ÚÇı¶¯ÅäÖÃ---------------------------------*/
+/*---------------------------------ä¸²å£é©±åŠ¨é…ç½®---------------------------------*/
 #define CONFIG_S3C24X0_SERIAL
 #define CONFIG_SERIAL1          1	/* we use SERIAL 1 on SMDK2410 */
 
 
-/*---------------------------------I2CºÍEEPROM--------------------------------------*/
+/*---------------------------------I2Cå’ŒEEPROM--------------------------------------*/
 #if 1
 #define CONFIG_CMD_I2C
 #define CONFIG_DRIVER_S3C24X0_I2C   1    /* we use the buildin I2C controller */
@@ -135,7 +135,7 @@
 #if 1
 #define CONFIG_CMD_EEPROM
 #define CONFIG_SYS_I2C_EEPROM_ADDR  0x50    /* ?? */ 
-#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN     1    /*Êı¾İµØÖ·³¤¶È*/
+#define CONFIG_SYS_I2C_EEPROM_ADDR_LEN     1    /*æ•°æ®åœ°å€é•¿åº¦*/
 #define CONFIG_SYS_I2C_EEPROM_ADDR_OVERFLOW    0x07
 #define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS       4
 #define CONFIG_SYS_EEPROM_PAGE_WRITE_ENABLE 
@@ -143,24 +143,24 @@
 #endif
 
 
-/*---------------------------------Íø¿¨Çı¶¯ÅäÖÃ----------------------------------*/
+/*---------------------------------ç½‘å¡é©±åŠ¨é…ç½®----------------------------------*/
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_NET
 #define CONFIG_NET_MULTI                1
 #define CONFIG_DRIVER_DM9000            1
-#define CONFIG_DM9000_BASE              0x20000300              //Íø¿¨Æ¬Ñ¡µØÖ·
+#define CONFIG_DM9000_BASE              0x20000300              //ç½‘å¡ç‰‡é€‰åœ°å€
 #define DM9000_IO                       CONFIG_DM9000_BASE
-#define DM9000_DATA                     (CONFIG_DM9000_BASE+4)  //Íø¿¨Êı¾İµØÖ·
+#define DM9000_DATA                     (CONFIG_DM9000_BASE+4)  //ç½‘å¡æ•°æ®åœ°å€
 #define CONFIG_DM9000_NO_SROM           1
 //#define CONFIG_DM9000_USE_16BIT
 #undef  CONFIG_DM9000_DEBUG
 
 
-/*--------------------------------ÊµÊ±Ê±ÖÓÇı¶¯ÅäÖÃ------------------------------*/
+/*--------------------------------å®æ—¶æ—¶é’Ÿé©±åŠ¨é…ç½®------------------------------*/
 #define	CONFIG_RTC_S3C24X0	1
 
 
-/*--------------------------------Nor FlashÇı¶¯ÅäÖÃ-----------------------------*/
+/*--------------------------------Nor Flashé©±åŠ¨é…ç½®-----------------------------*/
 #define PHYS_FLASH_1		        0x00000000 /* Flash Bank #1 */
 #define CONFIG_SYS_FLASH_BASE		PHYS_FLASH_1
 #define CONFIG_SYS_MAX_FLASH_BANKS	1	/* max number of memory banks */
@@ -171,19 +171,19 @@
 #define CONFIG_SYS_FLASH_WRITE_TOUT	(5*CONFIG_SYS_HZ) /* Timeout for Flash Write */
 
 
-/*---------------------------------- Nand FlashÇı¶¯ÅäÖÃ---------------------------*/
+/*---------------------------------- Nand Flashé©±åŠ¨é…ç½®---------------------------*/
 #define CONFIG_CMD_NAND
 #define CONFIG_SYS_NAND_BASE            0x4E000000 
 #define CONFIG_SYS_MAX_NAND_DEVICE      1	/* Max number of NAND devices  */
-#define CONFIG_MTD_NAND_YAFFS2          1		//¶¨ÒåÒ»¸ö¹ÜÀí¶ÔYaffs2Ö§³ÖµÄºê
+#define CONFIG_MTD_NAND_YAFFS2          1		//å®šä¹‰ä¸€ä¸ªç®¡ç†å¯¹Yaffs2æ”¯æŒçš„å®
 //#define CONFIG_SYS_DIRECT_NAND_TFTP
-#define CONFIG_NAND_S3C2440		        //==±àÒës3c2440_nand.cÇı¶¯
-//#define CONFIG_S3C2440_NAND_HWECC     /*´ò¿ªnand flashÓ²¼şeccÖ§³Ö*/
-//#define CONFIG_SYS_NAND_ECCSIZE     256    /*Ã¿´ÎeccÊı¾İ¿é´óĞ¡,¶ÔÓ¦ÄÚºËµÄchip->ecc.size*/
-//#define CONFIG_SYS_NAND_ECCBYTES    3    /*Ğ£Ñé½á¹ûÎª3¸ö×Ö½Ú,¶ÔÓ¦ÄÚºËµÄchip->ecc.bytes*/
+#define CONFIG_NAND_S3C2440		        //==ç¼–è¯‘s3c2440_nand.cé©±åŠ¨
+//#define CONFIG_S3C2440_NAND_HWECC     /*æ‰“å¼€nand flashç¡¬ä»¶eccæ”¯æŒ*/
+//#define CONFIG_SYS_NAND_ECCSIZE     256    /*æ¯æ¬¡eccæ•°æ®å—å¤§å°,å¯¹åº”å†…æ ¸çš„chip->ecc.size*/
+//#define CONFIG_SYS_NAND_ECCBYTES    3    /*æ ¡éªŒç»“æœä¸º3ä¸ªå­—èŠ‚,å¯¹åº”å†…æ ¸çš„chip->ecc.bytes*/
 
 
-/*---------------------------------USB SlaveÇı¶¯ÅäÖÃ---------------------------------*/
+/*---------------------------------USB Slaveé©±åŠ¨é…ç½®---------------------------------*/
 #ifdef	CONFIG_USE_IRQ
 #define CONFIG_USB_SLAVE	1
 //#define CONFIG_USB_DEMO
@@ -192,7 +192,7 @@
 #endif
 
 
-/*---------------------------------ÎÄ¼şÏµÍ³ÅäÖÃ--------------------------------- */
+/*---------------------------------æ–‡ä»¶ç³»ç»Ÿé…ç½®--------------------------------- */
 #if 1
 #define CONFIG_CMD_FAT
 #define CONFIG_SUPPORT_VFAT
@@ -202,7 +202,7 @@
 #endif
 
 
-/*---------------------------------USBÖ÷»úÇı¶¯ÅäÖÃ--------------------------------- */
+/*---------------------------------USBä¸»æœºé©±åŠ¨é…ç½®--------------------------------- */
 #if 1
 #define CONFIG_CMD_USB
 #define CONFIG_USB_OHCI
@@ -212,7 +212,7 @@
 #endif
 
 
-/*---------------------------------SD¿¨Çı¶¯ÅäÖÃ-------------------------------------- */
+/*---------------------------------SDå¡é©±åŠ¨é…ç½®-------------------------------------- */
 #if 1
 #define CONFIG_CMD_MMC
 #define CONFIG_MMC		1
@@ -221,7 +221,7 @@
 #endif
 
 
-/*----------------------------------LCDÇı¶¯ÅäÖÃ-------------------------------------- */
+/*----------------------------------LCDé©±åŠ¨é…ç½®-------------------------------------- */
 #if 1
 #define CONFIG_VIDEO 
 #define CONFIG_CFB_CONSOLE
@@ -233,8 +233,8 @@
 //#define VIDEO_FB_LITTLE_ENDIAN 
 //#define CFG_CONSOLE_INFO_QUIET
 //#define CONFIG_CONSOLE_CURSOR
-//#define CONFIG_CONSOLE_EXTRA_INFO  //==³ıÁËlogoÍâµÄÆäËüµ¥°åĞÅÏ¢
-//#define CONFIG_CONSOLE_TIME	//==ÔÚÓÒÉÏ½ÇÏÔÊ¾Ê±¼ä/ÈÕÆÚĞÅÏ¢ (ĞèÒª CONFIG_CMD_DATE)
+//#define CONFIG_CONSOLE_EXTRA_INFO  //==é™¤äº†logoå¤–çš„å…¶å®ƒå•æ¿ä¿¡æ¯
+//#define CONFIG_CONSOLE_TIME	//==åœ¨å³ä¸Šè§’æ˜¾ç¤ºæ—¶é—´/æ—¥æœŸä¿¡æ¯ (éœ€è¦ CONFIG_CMD_DATE)
 
 //#define CONFIG_SILENT_CONSOLE
 
@@ -242,11 +242,11 @@
 
 //#define VIDEO_FB_16BPP_PIXEL_SWAP 
 
-//#define CONFIG_VIDEO_LOGO //==ÔÚ×óÉÏ½ÇÏÔÊ¾Linux logo
+//#define CONFIG_VIDEO_LOGO //==åœ¨å·¦ä¸Šè§’æ˜¾ç¤ºLinux logo
 
 //#define CONFIG_VIDEO_SW_CURSOR 
 
-//#define CONFIG_VIDEO_BMP_LOGO //==Ê¹ÓÃbmp_logo.h×÷Îªlogo(Ä¬ÈÏÊÇlinux_logo.h)¡£
+//#define CONFIG_VIDEO_BMP_LOGO //==ä½¿ç”¨bmp_logo.hä½œä¸ºlogo(é»˜è®¤æ˜¯linux_logo.h)ã€‚
 #define CONFIG_CMD_BMP 
 
 
@@ -254,7 +254,7 @@
 //#define CONFIG_CMD_UNZIP
 
 #define CONFIG_SPLASH_SCREEN
-//#define CONFIG_SPLASH_SCREEN_ALIGN	//==ÉèÖÃÍ¼Æ¬ÏÔÊ¾Î»ÖÃ
+//#define CONFIG_SPLASH_SCREEN_ALIGN	//==è®¾ç½®å›¾ç‰‡æ˜¾ç¤ºä½ç½®
 
 
 #define CONFIG_SYS_CONSOLE_IS_IN_ENV
@@ -266,11 +266,11 @@
 #endif
 
 
-/*---------------------------------ÔÓÏîÅäÖÃ-------------------------------------- */
+/*---------------------------------æ‚é¡¹é…ç½®-------------------------------------- */
 #define CONFIG_CMDLINE_EDITING	    //history
 #define CONFIG_AUTO_COMPLETE	    //tab
 #define	CONFIG_SYS_LONGHELP			/* undef to save memory		*/
-#define	CONFIG_SYS_PROMPT		    "[»ÆÒøÇà@hyq2440#]"	/* Monitor Command Prompt	*/
+#define	CONFIG_SYS_PROMPT		    "[é»„é“¶é’@hyq2440#]"	/* Monitor Command Prompt	*/
 #define	CONFIG_SYS_CBSIZE		    256		/* Console I/O Buffer Size	*/
 #define	CONFIG_SYS_PBSIZE           (CONFIG_SYS_CBSIZE+sizeof(CONFIG_SYS_PROMPT)+16) /* Print Buffer Size */
 #define	CONFIG_SYS_MAXARGS		    16		/* max number of command args	*/

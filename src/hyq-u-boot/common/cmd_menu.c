@@ -174,7 +174,8 @@ void main_menu_usage(void)
     printf("[k] Download Linux kernel \"uImage\" to Nand Flash\n");
     printf("[y] Download Rootfs \"rootfs.yaffs2\" to Nand Flash\n");
     printf("[c] Download Rootfs \"rootfs.cramfs\" to Nand Flash\n");
-	printf("[a] Download App \"app.yaffs2\" to Nand Flash\n");
+	printf("[e] Download Config \"config.yaffs2\" to Nand Flash\n");
+	printf("[a] Download App \"app.cramfs\" to Nand Flash\n");
 
 //==开发测试功能
 	printf("[d] Download \"test.bin\"to SDRAM & Run\r\n");
@@ -250,27 +251,33 @@ void menu_shell(void)
 #ifdef CONFIG_SYS_DIRECT_NAND_TFTP
             case 'y':
             {
-                strcpy(cmd_buf, "nand erase 0x600000 0x3200000; tftp 0x600000 rootfs.yaffs2;");
+                strcpy(cmd_buf, "nand erase 0x600000 0x2800000; tftp 0x600000 rootfs.yaffs2;");
                 run_command(cmd_buf, 0);
                 break;
             }
 #else 
             case 'y':
             {
-                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 0x3200000; nand write.yaffs2 0x30000000 0x600000 $(filesize)");
+                strcpy(cmd_buf, "tftp 0x30000000 rootfs.yaffs2; nand erase 0x600000 0x2800000; nand write.yaffs2 0x30000000 0x600000 $(filesize)");
                 run_command(cmd_buf, 0);
                 break;
             }
 #endif
             case 'c':
             {
-                strcpy(cmd_buf, "tftp 0x30000000 rootfs.cramfs; nand erase 0x600000 0x3200000; nand write 0x30000000 0x600000 $(filesize)");
+                strcpy(cmd_buf, "tftp 0x30000000 rootfs.cramfs; nand erase 0x600000 0x2800000; nand write 0x30000000 0x600000 $(filesize)");
                 run_command(cmd_buf, 0);
                 break;
             }
+            case 'e':
+            {
+                strcpy(cmd_buf, "tftp 0x30000000 config.yaffs2; nand erase 0x2E00000 0xA00000; nand write.yaffs2 0x30000000 0x2E00000 $(filesize)");
+                run_command(cmd_buf, 0);
+                break;
+            }			
             case 'a':
             {
-                strcpy(cmd_buf, "tftp 0x30000000 app.yaffs2; nand erase 0x3800000 0xC800000; nand write.yaffs2 0x30000000 0x3800000 $(filesize)");
+                strcpy(cmd_buf, "tftp 0x30000000 app.cramfs; nand erase 0x3800000 0xC800000; nand write 0x30000000 0x3800000 $(filesize)");
                 run_command(cmd_buf, 0);
                 break;
             }
